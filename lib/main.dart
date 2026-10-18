@@ -8,6 +8,6 @@ import 'injection.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // required before async work
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  setupInjection(); // register services/cubits before the UI starts
+  await setupInjection(); // register services/repositories before the UI starts
   runApp(const ConnectMeApp());
 }
