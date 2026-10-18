@@ -1,5 +1,5 @@
 import '../../core/errors/failures.dart';
-import '../../data/datasources/post_datasource_factory.dart';
+import '../datasources/post_datasource_factory.dart';
 import '../../domain/entities/post.dart';
 import '../../domain/repositories/post_repository.dart';
 

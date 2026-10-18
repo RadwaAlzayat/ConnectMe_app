@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../injection.dart';
 import '../blocs/auth_cubit.dart';
 import '../blocs/auth_state.dart';
+import '../blocs/post_cubit.dart';
 import 'home_screen.dart';
 import 'login_screen.dart';
 
@@ -19,7 +21,12 @@ class AuthGate extends StatelessWidget {
         AuthInitial() => const Scaffold(
           body: Center(child: CircularProgressIndicator()),
         ),
-        Authenticated(:final user) => HomeScreen(user: user),
+        // PostCubit lives only while signed in: on logout this provider is
+        // removed, the cubit closes and its Firestore listener stops.
+        Authenticated(:final user) => BlocProvider<PostCubit>(
+          create: (_) => getIt<PostCubit>()..watchPosts(),
+          child: HomeScreen(user: user),
+        ),
         // Loading and error stay on the login screen so the form keeps its text.
         Unauthenticated() ||
         AuthLoading() ||

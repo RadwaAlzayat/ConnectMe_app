@@ -2,6 +2,7 @@
 /// Each method returns an error message, or null when the value is valid.
 class Validators {
   Validators._();
+  static const int maxPostLength = 500;
 
   static String? fullName(String? value) {
     final name = value?.trim() ?? '';
@@ -28,6 +29,15 @@ class Validators {
   static String? confirmPassword(String? value, String originalPassword) {
     if (value == null || value.isEmpty) return 'Please confirm your password';
     if (value != originalPassword) return 'Passwords do not match';
+    return null;
+  }
+
+  static String? postContent(String? value) {
+    final content = value?.trim() ?? "";
+    if (content.isEmpty) return 'Write something before posting';
+    if (content.length > maxPostLength) {
+      return 'Post is too long (max $maxPostLength characters)';
+    }
     return null;
   }
 }

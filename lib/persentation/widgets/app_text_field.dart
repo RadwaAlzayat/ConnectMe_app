@@ -13,6 +13,7 @@ class AppTextField extends StatefulWidget {
     this.keyboardType,
     this.textCapitalization = TextCapitalization.none,
     this.isPassword = false,
+    this.maxLines = 1,
   });
 
   final TextEditingController controller;
@@ -21,6 +22,7 @@ class AppTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextCapitalization textCapitalization;
   final bool isPassword;
+  final int maxLines;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -37,6 +39,8 @@ class _AppTextFieldState extends State<AppTextField> {
       keyboardType: widget.keyboardType,
       textCapitalization: widget.textCapitalization,
       obscureText: widget.isPassword && _isObscured,
+      // Flutter requires a single line for hidden (password) text.
+      maxLines: widget.isPassword ? 1 : widget.maxLines,
       decoration: InputDecoration(
         hintText: widget.hint,
         suffixIcon: widget.isPassword

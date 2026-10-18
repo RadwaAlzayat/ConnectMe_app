@@ -10,4 +10,6 @@ class AppUser {
   final String uid;
   final String fullName;
   final String email;
+
+  String get displayName => fullName.isNotEmpty ? fullName : email;
 }

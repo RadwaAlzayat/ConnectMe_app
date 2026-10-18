@@ -33,4 +33,20 @@ void main() {
       expect(Validators.confirmPassword('abc123', 'abc123'), isNull);
     });
   });
+
+  group('Validators.postContent', () {
+    test('rejects empty or whitespace-only posts', () {
+      expect(Validators.postContent(''), isNotNull);
+      expect(Validators.postContent('   '), isNotNull);
+    });
+
+    test('rejects posts longer than the limit', () {
+      final tooLong = 'a' * (Validators.maxPostLength + 1);
+      expect(Validators.postContent(tooLong), isNotNull);
+    });
+
+    test('accepts a normal post', () {
+      expect(Validators.postContent('Hello community'), isNull);
+    });
+  });
 }

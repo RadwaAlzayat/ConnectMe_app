@@ -3,11 +3,12 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/datasources/post_datasource_factory.dart';
+import 'data/repositories/post_repository_impl.dart';
 import 'domain/repositories/post_repository.dart';
-import 'domain/repositories/post_repository_impl.dart';
 import 'domain/usecases/create_posts.dart';
 import 'domain/usecases/get_posts.dart';
 import 'persentation/blocs/auth_cubit.dart';
+import 'persentation/blocs/post_cubit.dart';
 import 'services/auth_service.dart';
 import 'services/firestore_service.dart';
 
@@ -46,4 +47,8 @@ Future<void> setupInjection() async {
 
   // Cubits (a fresh instance each time one is requested)
   getIt.registerFactory<AuthCubit>(() => AuthCubit(getIt<AuthService>()));
+
+  getIt.registerFactory<PostCubit>(
+    () => PostCubit(getIt<GetPosts>(), getIt<CreatePost>()),
+  );
 }
