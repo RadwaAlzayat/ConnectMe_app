@@ -5,9 +5,10 @@ import '../../core/utils/validators.dart';
 import '../blocs/auth_cubit.dart';
 import '../blocs/auth_state.dart';
 import '../widgets/app_text_field.dart';
-
 import '../widgets/auth_scafold.dart';
+import '../widgets/auth_switch_link.dart';
 import '../widgets/gradient_button.dart';
+import 'sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -37,18 +38,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void _openSignUp() {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute<void>(builder: (_) => const SignUpScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
-      // listener: one-time reactions (a snackbar), not rebuilding the UI.
-      listener: (context, state) {
-        if (state is AuthError) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
-        }
-      },
-      // builder: redraws the UI for the current state.
+    // Error messages are shown once, app-wide (see app.dart), so this screen
+    // only needs the state to know whether the button should show loading.
+    return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return AuthScaffold(
           title: 'Welcome back',
@@ -74,6 +74,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   label: 'Log In',
                   isLoading: state is AuthLoading,
                   onPressed: _submit,
+                ),
+                const SizedBox(height: 16),
+                AuthSwitchLink(
+                  question: "Don't have an account?",
+                  actionLabel: 'Sign up',
+                  onPressed: _openSignUp,
                 ),
               ],
             ),

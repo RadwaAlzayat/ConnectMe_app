@@ -11,6 +11,7 @@ class AppTextField extends StatefulWidget {
     required this.hint,
     this.validator,
     this.keyboardType,
+    this.textCapitalization = TextCapitalization.none,
     this.isPassword = false,
   });
 
@@ -18,6 +19,7 @@ class AppTextField extends StatefulWidget {
   final String hint;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final TextCapitalization textCapitalization;
   final bool isPassword;
 
   @override
@@ -33,6 +35,7 @@ class _AppTextFieldState extends State<AppTextField> {
       controller: widget.controller,
       validator: widget.validator,
       keyboardType: widget.keyboardType,
+      textCapitalization: widget.textCapitalization,
       obscureText: widget.isPassword && _isObscured,
       decoration: InputDecoration(
         hintText: widget.hint,
