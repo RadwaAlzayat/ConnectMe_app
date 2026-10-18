@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../core/errors/failures.dart';
 import '../domain/entities/user.dart';
+import '../domain/entities/user_builder.dart';
 
 /// The only class that talks to Firebase Auth. Screens and cubits never
 /// import firebase_auth, so the data source can change without touching them.
@@ -82,9 +83,13 @@ class AuthService {
     }
   }
 
-  AppUser _toAppUser(User firebaseUser) => AppUser(
-    uid: firebaseUser.uid,
-    fullName: firebaseUser.displayName ?? '',
-    email: firebaseUser.email ?? '',
-  );
+  /// Builder pattern in use: only the fields we have at sign-up are set.
+  /// The photo is not provided here, so it stays null until the user picks one.
+  AppUser _toAppUser(User firebaseUser) {
+    return UserBuilder()
+        .setUid(firebaseUser.uid)
+        .setEmail(firebaseUser.email ?? '')
+        .setFullName(firebaseUser.displayName ?? '')
+        .build();
+  }
 }
