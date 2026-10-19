@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/errors/failures.dart';
 import '../../domain/entities/user.dart';
 import '../blocs/auth_cubit.dart';
 import '../blocs/post_cubit.dart';
 import '../blocs/post_state.dart';
+import '../blocs/profile_cubit.dart';
 import '../widgets/error_message_view.dart';
 import '../widgets/post_card.dart';
 import 'creat_post_screen.dart';
+import 'profile_screen.dart';
 
 /// The community feed.
 class HomeScreen extends StatelessWidget {
@@ -29,6 +32,30 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  /// Fingerprint first, profile second.
+  Future<void> _openProfile(BuildContext context) async {
+    // Taken before the await, so no BuildContext is used after the gap.
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final profileCubit = context.read<ProfileCubit>();
+
+    try {
+      final isVerified = await profileCubit.verifyIdentity();
+      if (!isVerified) return; // not verified: stay on the feed
+
+      navigator.push(
+        MaterialPageRoute<void>(
+          builder: (_) => BlocProvider.value(
+            value: profileCubit,
+            child: ProfileScreen(signedInUser: user),
+          ),
+        ),
+      );
+    } on Failure catch (failure) {
+      messenger.showSnackBar(SnackBar(content: Text(failure.message)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final sidePadding = MediaQuery.sizeOf(context).width * 0.05;
@@ -37,6 +64,11 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Community'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.account_circle_outlined),
+            tooltip: 'Profile',
+            onPressed: () => _openProfile(context),
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             tooltip: 'Log out',
