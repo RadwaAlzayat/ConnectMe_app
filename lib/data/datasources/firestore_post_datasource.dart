@@ -1,8 +1,4 @@
-import 'dart:async';
-
-import 'package:firebase_core/firebase_core.dart';
-
-import '../../core/errors/failures.dart';
+import '../../core/errors/firestore_error_mapper.dart';
 import '../../services/firestore_service.dart';
 import '../models/post_model.dart';
 import 'local_post_datasource.dart';
@@ -30,7 +26,7 @@ class FirestorePostDataSource implements PostDataSource {
           await _cache.savePosts(posts); // keep the offline copy fresh
           return posts;
         })
-        .handleError((Object error) => throw _toFailure(error));
+        .handleError((Object error) => throw mapFirestoreError(error));
   }
 
   @override
@@ -57,27 +53,7 @@ class FirestorePostDataSource implements PostDataSource {
           .set(post.toJson())
           .timeout(const Duration(seconds: 10));
     } catch (error) {
-      throw _toFailure(error);
+      throw mapFirestoreError(error);
     }
-  }
-
-  /// One place that turns Firebase errors into friendly messages.
-  Failure _toFailure(Object error) {
-    if (error is TimeoutException) {
-      return const NetworkFailure(
-        'Could not reach the server. Check your connection.',
-      );
-    }
-    if (error is FirebaseException) {
-      switch (error.code) {
-        case 'unavailable':
-          return const NetworkFailure(
-            'No internet connection. Please check your network.',
-          );
-        case 'permission-denied':
-          return const Failure('You do not have permission to do that.');
-      }
-    }
-    return const UnknownFailure();
   }
 }
