@@ -10,6 +10,7 @@ import '../blocs/profile_cubit.dart';
 import '../widgets/error_message_view.dart';
 import '../widgets/post_card.dart';
 import 'creat_post_screen.dart';
+import 'map_screen.dart';
 import 'profile_screen.dart';
 
 /// The community feed.
@@ -30,6 +31,12 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _openMap(BuildContext context) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute<void>(builder: (_) => const MapScreen()));
   }
 
   /// Fingerprint first, profile second.
@@ -64,6 +71,11 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Community'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.map_outlined),
+            tooltip: 'Community map',
+            onPressed: () => _openMap(context),
+          ),
           IconButton(
             icon: const Icon(Icons.account_circle_outlined),
             tooltip: 'Profile',
