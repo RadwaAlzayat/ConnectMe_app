@@ -19,7 +19,7 @@ patterns + Clean Architecture + beta distribution**.
 
 | Youtube Vedio Link |
 |---|
-| <scr="https://youtube.com/shorts/06HJcHOe_fs"> |
+| https://youtube.com/shorts/06HJcHOe_fs |
 
 ## Features
 
