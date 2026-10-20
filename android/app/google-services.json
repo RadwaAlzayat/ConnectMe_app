@@ -7,12 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:774371606479:android:737b9bfb5c91c50ace5cba",
+        "mobilesdk_app_id": "1:774371606479:android:48e44cad6002464ece5cba",
         "android_client_info": {
-          "package_name": "com.ConnectMe.connectme_app"
+          "package_name": "com.ConnectMe"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "774371606479-934uu510fqpnu7rj8leblt2dfbtvj007.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB76B6uFfL9nSreux-Gkuqd25_0tv2SRt4"
@@ -20,7 +25,41 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774371606479-934uu510fqpnu7rj8leblt2dfbtvj007.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774371606479:android:737b9bfb5c91c50ace5cba",
+        "android_client_info": {
+          "package_name": "com.ConnectMe.connectme_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774371606479-934uu510fqpnu7rj8leblt2dfbtvj007.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB76B6uFfL9nSreux-Gkuqd25_0tv2SRt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774371606479-934uu510fqpnu7rj8leblt2dfbtvj007.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

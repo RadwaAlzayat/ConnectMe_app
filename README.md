@@ -7,15 +7,19 @@ fingerprint-protected profile and see where other members are on a map.
 Built as the final capstone: **Firebase + native device features + design
 patterns + Clean Architecture + beta distribution**.
 
-## Screenshots
+## Screenshots and vidoe
 
 | Login | Sign Up | Home feed |
 |---|---|---|
-| <img src="screenshots/login.png" width="220"> | <img src="screenshots/sign_up.png" width="220"> | <img src="screenshots/home_feed.png" width="220"> |
+| <img src="screenshots/login.jpg" width="220"> | <img src="screenshots/sign_up.jpg" width="220"> | <img src="screenshots/home_feed.jpg" width="220"> |
 
 | Biometric prompt | Profile | Community map |
 |---|---|---|
-| <img src="screenshots/biometric_prompt.png" width="220"> | <img src="screenshots/profile.png" width="220"> | <img src="screenshots/community_map.png" width="220"> |
+| <img src="screenshots/biometric_prompt.jpg" width="220"> | <img src="screenshots/profile.jpg" width="220"> | <img src="screenshots/community_map.jpg" width="220"> |
+
+| Youtube Vedio Link |
+|---|
+| <scr="https://youtube.com/shorts/06HJcHOe_fs"> |
 
 ## Features
 
@@ -133,7 +137,6 @@ flutter test
 
 ## Beta distribution (Firebase App Distribution)
 
-<!-- TODO: finish with the real steps and screenshots after distributing. -->
 
 1. Build the release APK: `flutter build apk --release`
 2. Firebase Console → **App Distribution** → upload `build/app/outputs/flutter-apk/app-release.apk`.
@@ -142,7 +145,7 @@ flutter test
 
 | Dashboard with the APK and two testers | Tester invitation email |
 |---|---|
-| <img src="screenshots/app_distribution_dashboard.png" width="380"> | <img src="screenshots/tester_invitation_email.png" width="380"> |
+| <img src="screenshots/app_distribution_dashboard.png" width="380"> | <img src="screenshots/tester_invitation_email.jpg" width="380"> |
 
 ## Tech stack
 

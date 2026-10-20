@@ -5,9 +5,14 @@ import 'app.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
 
+
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // required before async work
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await setupInjection(); // register services/repositories before the UI starts
-  runApp(const ConnectMeApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await setupInjection();
+    runApp(const ConnectMeApp());
+  } catch (error) {
+    runApp(MaterialApp(home: Scaffold(body: Center(child: Text('$error')))));
+  }
 }
