@@ -25,6 +25,22 @@ class ProfileService {
         .handleError((Object error) => throw mapFirestoreError(error));
   }
 
+  /// One-time read of a member's photo (used to show it on their posts).
+  /// Returns null when there is no photo or it cannot be read: a missing photo
+  /// only means the first letter of the name is shown instead.
+  Future<String?> fetchPhoto(String uid) async {
+    try {
+      final snapshot = await _firestoreService
+          .collection(_collectionPath)
+          .doc(uid)
+          .get();
+      final data = snapshot.data();
+      return data == null ? null : UserModel.fromJson(data).photoBase64;
+    } catch (_) {
+      return null;
+    }
+  }
+
   Future<void> saveProfile(AppUser user) async {
     try {
       await _firestoreService

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:connectme_app/core/errors/failures.dart';
 import 'package:connectme_app/domain/entities/post.dart';
 import 'package:connectme_app/domain/usecases/create_posts.dart';
+import 'package:connectme_app/services/profile_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/user.dart';
@@ -10,7 +11,8 @@ import '../../domain/usecases/get_posts.dart';
 import 'post_state.dart';
 
 class PostCubit extends Cubit<PostState> {
-  PostCubit(this._getPosts, this._creatPost) : super(const PostInitial());
+  PostCubit(this._getPosts, this._creatPost, ProfileService profileService)
+    : super(const PostInitial());
 
   final GetPosts _getPosts;
   final CreatePost _creatPost;

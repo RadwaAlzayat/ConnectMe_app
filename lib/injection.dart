@@ -68,7 +68,11 @@ Future<void> setupInjection() async {
   // Cubits (a fresh instance each time one is requested)
   getIt.registerFactory<AuthCubit>(() => AuthCubit(getIt<AuthService>()));
   getIt.registerFactory<PostCubit>(
-    () => PostCubit(getIt<GetPosts>(), getIt<CreatePost>()),
+    () => PostCubit(
+      getIt<GetPosts>(),
+      getIt<CreatePost>(),
+      getIt<ProfileService>(),
+    ),
   );
   getIt.registerFactory<ProfileCubit>(
     () => ProfileCubit(

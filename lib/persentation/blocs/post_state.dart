@@ -14,12 +14,16 @@ class PostLoading extends PostState {
 }
 
 class PostLoaded extends PostState {
-  const PostLoaded(this.posts);
+  const PostLoaded(this.posts, {this.authorPhotos = const {}});
 
   final List<Post> posts;
+
+  /// authorId -> profile photo (base64). Missing or null means "no photo".
+  final Map<String, String?> authorPhotos;
 }
 
 class PostError extends PostState {
   const PostError(this.message);
+
   final String message;
 }

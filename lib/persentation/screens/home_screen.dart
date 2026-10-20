@@ -7,6 +7,7 @@ import '../blocs/auth_cubit.dart';
 import '../blocs/post_cubit.dart';
 import '../blocs/post_state.dart';
 import '../blocs/profile_cubit.dart';
+import '../blocs/profile_state.dart';
 import '../widgets/error_message_view.dart';
 import '../widgets/post_card.dart';
 import 'creat_post_screen.dart';
@@ -67,6 +68,15 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final sidePadding = MediaQuery.sizeOf(context).width * 0.05;
 
+    // My own photo comes live from the profile, so a photo I just changed
+    // shows on my posts immediately.
+    final ownPhotoBase64 = context.select<ProfileCubit, String?>(
+      (cubit) => switch (cubit.state) {
+        ProfileLoaded(:final user) => user.photoBase64,
+        _ => null,
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Community'),
@@ -101,7 +111,7 @@ class HomeScreen extends StatelessWidget {
             message: message,
             onRetry: () => context.read<PostCubit>().watchPosts(),
           ),
-          PostLoaded(:final posts) =>
+          PostLoaded(:final posts, :final authorPhotos) =>
             posts.isEmpty
                 ? const Center(
                     child: Text('No posts yet. Be the first to post!'),
@@ -116,7 +126,15 @@ class HomeScreen extends StatelessWidget {
                     ),
                     itemCount: posts.length,
                     separatorBuilder: (_, _) => const SizedBox(height: 12),
-                    itemBuilder: (_, index) => PostCard(post: posts[index]),
+                    itemBuilder: (_, index) {
+                      final post = posts[index];
+                      return PostCard(
+                        post: post,
+                        authorPhotoBase64: post.authorId == user.uid
+                            ? ownPhotoBase64
+                            : authorPhotos[post.authorId],
+                      );
+                    },
                   ),
         },
       ),
